@@ -26,19 +26,16 @@ bool is_valid_move(int row, int col) {
 }
 
 bool has_won(char symbol) {
-    // Check rows
     for (int i = 0; i < BOARD_SIZE; i++) {
         if (board[i][0] == symbol && board[i][1] == symbol && board[i][2] == symbol) {
             return true;
         }
     }
-    // Check columns
     for (int j = 0; j < BOARD_SIZE; j++) {
         if (board[0][j] == symbol && board[1][j] == symbol && board[2][j] == symbol) {
             return true;
         }
     }
-    // Check diagonals
     if (board[0][0] == symbol && board[1][1] == symbol && board[2][2] == symbol) {
         return true;
     }
@@ -77,7 +74,7 @@ void score(int user_score, int computer_score) {
 }
 
 int main() {
-    // Initialize board with empty spaces
+    
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             board[i][j] = ' ';
@@ -88,12 +85,10 @@ int main() {
     char computer_symbol = 'O';
     int computer_score = 0;
     bool user_turn = true;
-    bool play_again = true; // added variable for user to choose whether to play again
+    bool play_again = true; 
     do {
         while (true) {
-            // Display board
             display_board();
-            // Take user input
             int row, col;
             if (user_turn) {
                 cout << "Enter row (1-3): ";
@@ -108,21 +103,17 @@ int main() {
                 }
                 board[row][col] = user_symbol;
             } else {
-                // Implement computer's turn
                 cout << "Computer's turn." << endl;
-                // Loop until a valid move is found
-                while (true) {
-                    // Generate random row and column
-                    row = rand() % BOARD_SIZE;
+                 while (true) {
+                   row = rand() % BOARD_SIZE;
                     col = rand() % BOARD_SIZE;
-                    // Check if move is valid
                     if (is_valid_move(row, col)) {
                         board[row][col] = computer_symbol;
                         break;
                     }
                 }
             }
-            // Check for win or tie
+          
             if (has_won(user_symbol)) {
                 user_score++;
                 display_board();
@@ -143,17 +134,15 @@ int main() {
                 score(user_score, computer_score);
                 break;
             }
-            // Alternate turns
+           
             user_turn = !user_turn;
         }
-        // Ask the user if they want to play again
         cout << "Do you want to play again? (Y/N): ";
         char answer;
         cin >> answer;
         if (answer != 'Y' && answer != 'y') {
             play_again = false;
         }
-        // Reset the board and scores for a new game
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 board[i][j] = ' ';
