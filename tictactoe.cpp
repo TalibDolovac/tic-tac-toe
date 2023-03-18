@@ -74,18 +74,35 @@ void score(int user_score, int computer_score) {
 }
 
 int main() {
-    
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             board[i][j] = ' ';
         }
     }
-    char user_symbol = 'X';
+    char user_symbol;
     int user_score = 0;
-    char computer_symbol = 'O';
+    char computer_symbol;
     int computer_score = 0;
     bool user_turn = true;
     bool play_again = true; 
+
+    while(true) {
+        cout << "What symbol do you want: ";
+        cin >> user_symbol;
+
+        cout << "What computer symbol do you want: ";
+        cin >> computer_symbol; 
+
+        if(user_symbol != computer_symbol) {
+            break;
+        } else {
+            cout << "Error: Symbols must be different. Please try again." << endl;
+        }
+    }
+
+    user_symbol = toupper(user_symbol); 
+    computer_symbol = toupper(computer_symbol);
+
     do {
         while (true) {
             display_board();
